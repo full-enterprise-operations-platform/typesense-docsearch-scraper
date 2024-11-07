@@ -88,6 +88,11 @@ def run_config(config):
         token_response = oidc_client.client_credentials()
         token = token_response["access_token"]
         headers.update({"Authorization": 'bearer ' + token})
+    
+    # Generic authentication
+    elif (os.getenv("GENERIC_BEARER_TYPE") and
+        os.getenv("GENERIC_BEARER_TOKEN")):
+        headers.update({"Authorization": os.getenv("GENERIC_BEARER_TYPE") + ' ' + os.getenv("GENERIC_BEARER_TOKEN")})
 
     DEFAULT_REQUEST_HEADERS = headers
 
